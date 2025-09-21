@@ -1,0 +1,305 @@
+body {
+	font-family: "Inter", sans-serif;
+	overflow-x: hidden;
+	transition: background-color 0.5s ease;
+}
+
+p,
+.text-slate-500,
+.text-slate-600,
+.text-sm {
+	font-family: "Manrope", sans-serif;
+}
+
+/* --- BACKGROUND & FLARES --- */
+body.dark-theme {
+	/* background: linear-gradient(245deg, #0f172a, #131b31, #2e1a47, #4a0e35); */
+	background: linear-gradient(245deg, #0f172a, #131b31, #2e1a47, #0e1f4a);
+	background-size: 400% 400%;
+	animation: gradient-flow 25s ease-in-out infinite;
+	color: #f8fafc; /* slate-50 */
+}
+
+body.light-theme {
+	/* background: linear-gradient(245deg, #f1f5f9, #e0e7ff, #fbcfe8, #d1d5db); */
+	/* background: linear-gradient(245deg, #f1f5f9, #f3f6ff, #eaf3ff, #e7ebf2); */
+	background: linear-gradient(245deg, #f1f5f9, #f3f6ff, #eaf3ff, #e7ebf2);
+	background-size: 400% 400%;
+	animation: gradient-flow 25s ease-in-out infinite;
+	color: #1e293b; /* slate-800 */
+}
+
+/* <div id="quick-look-modal" class="glass-ui glass-card fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl shadow-lg z-50 w-11/12 md:w-2/3 lg:w-1/2 max-w-4xl hidden"> */
+
+/* Keyframe animation for the flowing gradient background */
+/* @keyframes gradient-flow {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      } */
+
+/* Flare styles for background effects */
+.flare {
+	position: fixed; /* Keep them in place during scroll */
+	border-radius: 50%;
+	filter: blur(150px);
+	opacity: 0; /* Start hidden, fade in with JS */
+	animation: float 35s ease-in-out infinite alternate;
+	z-index: -1;
+	transition: opacity 1s ease-in-out;
+}
+
+.flare.cyan {
+	width: 500px;
+	height: 500px;
+	background: #00ffff;
+	top: 10%;
+	left: 20%;
+	opacity: 0.15;
+}
+
+.flare.magenta {
+	width: 400px;
+	height: 400px;
+	background: #ff00ff;
+	bottom: 10%;
+	right: 15%;
+	animation-delay: 3s;
+	opacity: 0.2;
+}
+
+/* Specific flare opacity for the light theme */
+.light-theme .flare.cyan {
+	opacity: 0.2;
+}
+.light-theme .flare.magenta {
+	opacity: 0.25;
+	background: #a855f7;
+}
+
+/* Keyframe animation for the floating movement of flares */
+@keyframes float {
+	0% {
+		transform: translate(0, 0) rotate(0deg);
+	}
+	100% {
+		transform: translate(150px, -200px) rotate(180deg);
+	}
+}
+
+/* Interactive directional flare that follows the mouse */
+.directional-flare {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 350px;
+	height: 350px;
+	background: radial-gradient(
+		closest-side,
+		rgba(255, 255, 255, 0.025),
+		transparent 80%
+	);
+	opacity: 0; /* Fade in on interaction */
+	filter: blur(100px);
+	border-radius: 50%;
+	pointer-events: none;
+	z-index: 1;
+	transform: translate(-50%, -50%);
+	transition: opacity 0.3s ease-out, transform 0.1s linear;
+}
+.light-theme .directional-flare {
+	background: radial-gradient(
+		closest-side,
+		rgba(0, 0, 0, 0.05),
+		transparent 80%
+	);
+}
+
+/* --- GLASSMORPHISM STYLES --- */
+.glass-ui {
+	/* Base class for all glassmorphic elements */
+	backdrop-filter: blur(16px) saturate(180%);
+	-webkit-backdrop-filter: blur(16px) saturate(180%);
+	transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.box-reflect {
+	-webkit-box-reflect: below 10px
+		linear-gradient(to bottom, rgba(0, 0, 0, 0), rgb(0, 0, 0, 0.1));
+}
+
+/* Dark theme glass styles */
+.dark .glass-ui {
+	background-color: rgba(29, 39, 58, 0.4);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Light theme glass styles */
+.light .glass-ui {
+	background-color: rgba(255, 255, 255, 0.5);
+	border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.dark header.glass-ui,
+.light header.glass-ui {
+	border-left: none;
+	border-right: none;
+}
+
+.light #quick-look-modal.glass-ui,
+/* .light #quick-look-modal.glass-card, */
+.light #contact-modal.glass-ui {
+	/* 	background-color: rgba(255, 255, 255, 0.75) !important; */
+	/* rgba(255, 0, 255, 0.86) */
+	/* 	rgba(0, 255, 255, 0.86) */
+	-webkit-backdrop-filter: blur(5px);
+	backdrop-filter: blur(5px);
+	/* 	opacity: 0.9; */
+	background-image: linear-gradient(
+		135deg,
+		rgba(222, 253, 253, 0.85),
+		rgba(255, 222, 255, 0.6)
+	) !important;
+}
+
+/* Specific styling for cards to add a subtle gradient */
+.glass-card {
+	background-image: linear-gradient(
+		135deg,
+		rgba(255, 255, 255, 0.05),
+		rgba(255, 255, 255, 0)
+	);
+}
+
+.light .glass-card {
+	background: rgba(255, 255, 255, 0.25);
+	border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* .light .glass-card {
+        background-image: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.4),
+          rgba(255, 255, 255, 0.1)
+        );
+      } */
+
+/* --- Glassmorphism Card Style --- */
+.glass-card {
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border-radius: 1rem;
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	transition: background 0.3s ease, border 0.3s ease;
+}
+.dark .glass-card {
+	background: rgba(15, 23, 42, 0.3);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+	border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+.glass-card:hover {
+	/* background-image: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.4),
+          rgba(255, 255, 255, 0.1)
+        ); */
+	background: rgba(255, 255, 255, 0.55);
+}
+
+/* .glass-card:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+      } */
+
+.dark .glass-card:hover {
+	background: rgba(15, 23, 42, 0.5);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* --- SCROLLBAR STYLES --- */
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+/* Dark theme scrollbar */
+.dark ::-webkit-scrollbar-track {
+	background: rgba(30, 41, 59, 0.5); /* slate-800 */
+}
+.dark ::-webkit-scrollbar-thumb {
+	background: rgba(71, 85, 105, 0.7); /* slate-600 */
+	border-radius: 10px;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+	background: #64748b; /* slate-500 */
+}
+/* Light theme scrollbar */
+.light ::-webkit-scrollbar-track {
+	background: rgba(226, 232, 240, 0.5); /* slate-200 */
+}
+.light ::-webkit-scrollbar-thumb {
+	background: rgba(148, 163, 184, 0.7); /* slate-400 */
+	border-radius: 10px;
+}
+.light ::-webkit-scrollbar-thumb:hover {
+	background: #64748b; /* slate-500 */
+}
+
+/* Button test */
+.login-button {
+	padding: 0.5rem 1rem;
+	border-radius: 0.75rem;
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	backdrop-filter: blur(12px) saturate(180%);
+	-webkit-backdrop-filter: blur(12px) saturate(180%);
+	background-image: linear-gradient(
+		135deg,
+		rgba(255, 255, 255, 0.05),
+		rgba(255, 255, 255, 0)
+	);
+	color: #f8fafc;
+	transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+	cursor: pointer;
+}
+
+.login-button:hover {
+	background-image: linear-gradient(
+		135deg,
+		rgba(255, 255, 255, 0.12),
+		rgba(255, 255, 255, 0.03)
+	);
+	border-color: rgba(255, 255, 255, 0.3);
+}
+
+body.light-theme .login-button {
+	background-image: linear-gradient(
+		135deg,
+		rgba(255, 255, 255, 0.4),
+		rgba(255, 255, 255, 0.1)
+	);
+	border-color: rgba(0, 0, 0, 0.08);
+	color: #1e293b;
+}
+
+body.light-theme .login-button:hover {
+	background-image: linear-gradient(
+		135deg,
+		rgba(255, 255, 255, 0.5),
+		rgba(255, 255, 255, 0.2)
+	);
+	border-color: rgba(0, 0, 0, 0.15);
+}
+
+@media screen and (max-width: 1000px) {
+	.box-reflect {
+		-webkit-box-reflect: unset;
+	}
+}
